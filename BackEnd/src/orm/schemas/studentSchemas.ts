@@ -12,4 +12,4 @@ export const studentsSchemas = new Schema<Student>({
     absences:{ type: Number, required: false },
 });
 
-export const studentsModel = model<Student>('Students', studentsSchemas);
+export const studentsModel = model<Student>('students', studentsSchemas);

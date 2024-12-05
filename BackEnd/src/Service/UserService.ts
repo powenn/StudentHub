@@ -18,7 +18,6 @@ export class UserService extends Service {
     public async getAllStudents(): Promise<Array<DBResp<Student>> | undefined> {
         try {
             const res: Array<DBResp<Student>> = await studentsModel.find({});
-            console.log(res)
             return res;
         } catch (error) {
             return undefined;
