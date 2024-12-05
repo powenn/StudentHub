@@ -45,7 +45,7 @@ export class UserController extends Contorller {
     }
 
     public async updateNameByID(Request:Request , Response:Response) {
-        const resp = await this.service.updateNameByID(Request.query.id as string,Request.query.name as string)
+        const resp = await this.service.updateNameByID(Request.query.id as string,Request.body.name as string)
         Response.status(resp.code).send(resp)
     }
 }

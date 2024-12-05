@@ -7,6 +7,7 @@ import App from './view/App'
 import InsertOne from './view/InsertOne'
 import UpdateStudent from './view/UpdateStudent'
 import DeleteStudent from './view/DeleteStudent'
+import { StudentsProvider } from './context/StudentsContext';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <StudentsProvider>
+      <RouterProvider router={router} />
+    </StudentsProvider>
   </StrictMode>,
 )

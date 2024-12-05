@@ -5,6 +5,7 @@ import { api } from '../enum/api';
 import { resp } from '../interface/resp';
 import '../style/InsertForm.css';
 import '../style/ResponseDisplay.css'
+import ResponseDisplay from '../component/ResponseDisplay';
 
 export default function InsertOne() {
   const [newStudent, setNewStudent] = useState({
@@ -27,9 +28,7 @@ export default function InsertOne() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log(newStudent);
-    
+    e.preventDefault();    
     const response = await asyncPost(api.insertOne, newStudent);
     setResponse(response);
 
@@ -70,16 +69,6 @@ export default function InsertOne() {
         </form>
       </div>
       {response && <ResponseDisplay response={response} />}
-    </div>
-  );
-}
-
-function ResponseDisplay({ response }: { response: resp<string> }) {
-  return (
-    <div className="response-display">
-      <h3>回應結果</h3>
-      <p>狀態碼: {response.code}</p>
-      <p>訊息: {response.message}</p>
     </div>
   );
 }

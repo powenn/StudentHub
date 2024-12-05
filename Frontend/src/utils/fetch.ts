@@ -35,6 +35,25 @@ export async function asyncPost(api: string, body: {} | FormData) {
     }
 }
 
+
+export async function asyncPut(api: string, body: {} | FormData) {
+    const res: Response = await fetch(api, {
+        method: 'PUT',
+        headers:new Headers({
+            'Access-Control-Allow-Origin':"http://localhost:5173/",
+            'content-Type':"application/json"
+        }),
+        body: body instanceof FormData?body:JSON.stringify(body),
+        mode:"cors"
+    })
+    try {
+        let data = res.json()
+        return data
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 export async function asyncPatch(api: string, body: {} | FormData) {
     const res: Response = await fetch(api, {
         method: 'PATCH',

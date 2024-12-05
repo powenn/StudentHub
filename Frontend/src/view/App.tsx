@@ -1,16 +1,17 @@
 import '../style/App.css';
 import '../style/NavBar.css'
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { asyncGet } from '../utils/fetch';
 import { api } from '../enum/api';
 import { Student } from '../interface/Student';
 import { resp } from '../interface/resp';
 import Statistics from './Statistics';
 import Navbar from '../component/NavBar';
+import { StudentsContext } from '../context/StudentsContext';
 
 
-function App() {
-  const [students, setStudents] = useState<Array<Student>>([]);
+export default function App() {
+  const { students, setStudents } = useContext(StudentsContext);
   const [searchName, setSearchName] = useState<string>('');
   const [searchAbsences, setSearchAbsences] = useState<number | undefined>(undefined);
   const cache = useRef<boolean>(false);
@@ -75,5 +76,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
