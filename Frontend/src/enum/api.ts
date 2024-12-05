@@ -1,7 +1,7 @@
-export enum api{
-    base = "http://127.0.0.1:3000",
-    findAll = base+"/api/v1/user/findAll",
-    insertOne = base+"/api/v1/user/insertOne", 
-    deleteByID = base+"/api/v1/user/deleteByID",
-    updateNameByID = base+"/api/v1/user/updateByID"
-}
+export const api = {
+    base: import.meta.env.VITE_API_BASE_URL,
+    findAll: `${import.meta.env.VITE_API_BASE_URL}/api/v1/user/findAll`,
+    insertOne: `${import.meta.env.VITE_API_BASE_URL}/api/v1/user/insertOne`,
+    deleteByID: `${import.meta.env.VITE_API_BASE_URL}/api/v1/user/deleteByID`,
+    updateNameByID: `${import.meta.env.VITE_API_BASE_URL}/api/v1/user/updateByID`
+};
