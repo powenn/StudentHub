@@ -1,6 +1,7 @@
-import { StatisticsDictProps, StatisticsProps } from "../interface/StatisticsProps"
+import { StatisticsDictProps } from "../interface/StatisticsProps"
+import { StudentProps } from "../interface/StudentProps";
 
-export default function Statistics(stdntData: StatisticsProps) {
+export default function Statistics(stdntData: StudentProps) {
     const data = stdntData ? stdntData.data : [];
 
     let st_department_map: Map<string, number> = new Map();
