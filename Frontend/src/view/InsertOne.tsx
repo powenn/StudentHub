@@ -50,7 +50,7 @@ export default function InsertOne() {
 
   return (
     <div className="container">
-      <Navbar />
+      <Navbar></Navbar>
       <div className="insert-form">
         <h2>新增學生</h2>
         <form onSubmit={handleSubmit}>

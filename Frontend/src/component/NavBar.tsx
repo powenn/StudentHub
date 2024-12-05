@@ -7,6 +7,8 @@ export default function Navbar() {
     <nav className="nav-bar">
       <Link to="/">學生列表</Link>
       <Link to="/insertOne">新增學生</Link>
+      <Link to="/updateStudent">更新學生資料</Link>
+      <Link to="/deleteStudent">刪除學生</Link>
     </nav>
   );
 }
