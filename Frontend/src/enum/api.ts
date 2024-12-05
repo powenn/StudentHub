@@ -3,5 +3,5 @@ export enum api{
     findAll = base+"/api/v1/user/findAll",
     insertOne = base+"/api/v1/user/insertOne", 
     deleteByID = base+"/api/v1/user/deleteByID",
-    updateNameByID = base+"/api/v1/user/updateNameByID"
+    updateNameByID = base+"/api/v1/user/updateByID"
 }

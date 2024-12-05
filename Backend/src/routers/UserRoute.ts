@@ -39,8 +39,8 @@ export class UserRoute extends Route {
             this.Contorller.deleteByID(req, res)
         })
 
-        this.router.put(`${this.url}updateNameByID`, (req, res) => {
-            this.Contorller.updateNameByID(req, res)
+        this.router.put(`${this.url}updateByID`, (req, res) => {
+            this.Contorller.updateByID(req, res)
         })
     }
 }

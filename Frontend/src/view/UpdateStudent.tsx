@@ -3,7 +3,7 @@ import { StudentsContext } from "../context/StudentsContext";
 import { Student } from "../interface/Student";
 import Navbar from "../component/NavBar";
 import '../style/UpdateStudent.css'
-import { asyncPut } from "../utils/fetch";
+import { asyncGet, asyncPut } from "../utils/fetch";
 import { api } from "../enum/api";
 import { resp } from "../interface/resp";
 import ResponseDisplay from "../component/ResponseDisplay";
@@ -27,12 +27,16 @@ export default function UpdateStudent() {
 
     const handleSave = async () => {
         if (selectedStudent) {
-            const response = await asyncPut(`${api.updateNameByID}?id=${selectedStudent._id}`,{
-                name:selectedStudent.name
-            })
+            const response = await asyncPut(`${api.updateNameByID}?id=${selectedStudent._id}`, selectedStudent)
             setResponse(response)
             if (response.code === 200) {
                 alert('更新成功');
+                const res = await asyncGet(api.findAll);
+                if (res.code === 200) {
+                    setStudents(res.body);
+                    const updatedStudent = res.body.find((s: Student) => s.sid === selectedStudent.sid);
+                    setSelectedStudent(updatedStudent || null);
+                }
             } else {
                 alert('更新失敗')
             }
@@ -70,6 +74,11 @@ export default function UpdateStudent() {
                         />
                         <input
                             type="text"
+                            value={selectedStudent.sid}
+                            onChange={(e) => handleUpdate("sid", e.target.value)}
+                        />
+                        <input
+                            type="text"
                             value={selectedStudent.name}
                             onChange={(e) => handleUpdate("name", e.target.value)}
                         />
@@ -104,7 +113,7 @@ export default function UpdateStudent() {
                     <p className="no-student">沒有符合的學生</p>
                 )}
             </div>
-            {response && <ResponseDisplay response={response} />}
+            {(selectedStudent && response) && <ResponseDisplay response={response} />}
         </div>
     );
 }

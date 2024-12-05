@@ -170,33 +170,67 @@ export class UserService extends Service {
     /**
      * 用 ID 更新用戶
      * @param id
-     * @param name
+     * @param info
      * @returns resp
      */
-    public async updateNameByID(id: string, name: string) {
+    public async updateByID(id: string, info: Student) {
         const resp: resp<DBResp<Student> | string> = {
             code: 200,
             message: "",
             body: ""
         }
-
-        const user = await studentsModel.findById(id)
-        if (user) {
-            try {
-                user.name = name
-                await user.save()
-                resp.body = user
-                resp.message = "update success"
-            } catch (error) {
-                resp.code = 500
-                resp.message = "server error"
+    
+        try {
+            const user = await studentsModel.findById(id);
+            
+            if (!user) {
+                resp.code = 404;
+                resp.message = "user not found";
+                return resp;
             }
-        } else {
-            resp.code = 404
-            resp.message = "user not found"
+    
+            const originalUserName = user.userName;
+            const originalSid = user.sid;
+    
+            if (info.userName !== originalUserName) {
+                const nameValidator = await this.userNameValidator(info.userName);
+                if (nameValidator !== '驗證通過') {
+                    resp.code = 403;
+                    resp.message = nameValidator;
+                    return resp;
+                }
+            }
+    
+            if (info.sid !== originalSid) {
+                const sidExists = await this.checkSidExists(info.sid as string);
+                if (sidExists) {
+                    resp.code = 403;
+                    resp.message = 'sid already exists';
+                    return resp;
+                }
+            }
+    
+            user.userName = info.userName || user.userName;
+            user.sid = info.sid || user.sid;
+            user.name = info.name;
+            user.department = info.department;
+            user.grade = info.grade;
+            user.class = info.class;
+            user.Email = info.Email;
+            user.absences = info.absences;
+
+            await user.save();
+            resp.body = user;
+            resp.message = "update success";
+        } catch (error) {
+            resp.code = 500;
+            resp.message = "server error: " + error;
         }
-
-        return resp
+        return resp;
     }
-
+    
+    private async checkSidExists(sid: string): Promise<boolean> {
+        const students = await this.getAllStudents();
+        return students && students.some(student => student.sid === sid) || false;
+    }
 }
