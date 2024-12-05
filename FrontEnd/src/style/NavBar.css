@@ -1,0 +1,17 @@
+.nav-bar {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  background-color: rgb(98, 211, 255);
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.nav-bar a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+}
