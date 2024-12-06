@@ -53,7 +53,7 @@ export default function UpdateStudent() {
         <div className="container">
             <Navbar></Navbar>
             <div className="update-form">
-                <h2>更新學生資訊</h2>
+                <h2>更新學生資料</h2>
                 <div className="search-bar">
                     <input
                         type="text"
