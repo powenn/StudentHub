@@ -78,11 +78,11 @@ export class UserService extends Service {
      * 座號檢查，跟之前有重複就噴錯  只能寫沒重複的號碼
      */
     public async userNameValidator(userName: string): Promise<
-        '學生名字格式不正確，應為 tku + 科系縮寫 + 四碼座號，例如: tkubm1760' | '座號已存在' | '校名必須為 tku' | '座號格式不正確，必須為四位數字。' | '驗證通過'
+        '學生名字格式不正確，應為 tku + 科系縮寫 + 四碼帳號，例如: tkubm1760' | '帳號已存在' | '校名必須為 tku' | '帳號格式不正確，必須為四位數字。' | '驗證通過'
     > {
 
         if (userName.length < 7) {
-            return ('學生名字格式不正確，應為 tku + 科系縮寫 + 四碼座號，例如: tkubm1760');
+            return ('學生名字格式不正確，應為 tku + 科系縮寫 + 四碼帳號，例如: tkubm1760');
         }
 
         const info = this.userNameFormator(userName);
@@ -95,11 +95,11 @@ export class UserService extends Service {
         const seatNumberPattern = /^\d{4}$/; // 驗證4個數字
 
         if (!seatNumberPattern.test(info.seatNumber)) {
-            return '座號格式不正確，必須為四位數字。';
+            return '帳號格式不正確，必須為四位數字。';
         }
 
         if (await this.existingSeatNumbers(info.seatNumber)) {
-            return '座號已存在'
+            return '帳號已存在'
         }
 
         return '驗證通過'
