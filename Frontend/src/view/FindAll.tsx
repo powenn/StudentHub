@@ -27,7 +27,7 @@ export default function FindAll() {
     const filteredStudents = students.filter((student) => {
       const nameMatches = searchName ? student.name.includes(searchName) : true;
       const absencesMatches =
-        searchAbsences !== undefined ? student.absences === searchAbsences : true;
+        searchAbsences !== undefined ? (student.absences === searchAbsences || student.absences === undefined && searchAbsences === 0) : true;
   
       return nameMatches && absencesMatches;
     });
