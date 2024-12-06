@@ -2,7 +2,6 @@ import { useContext, useState } from "react";
 import { StudentsContext } from "../context/StudentsContext";
 import { Student } from "../interface/Student";
 import Navbar from "../component/NavBar";
-import '../style/UpdateStudent.css'
 import { asyncGet, asyncPut } from "../utils/fetch";
 import { api } from "../enum/api";
 import { resp } from "../interface/resp";
@@ -52,7 +51,7 @@ export default function UpdateStudent() {
     return (
         <div className="container">
             <Navbar></Navbar>
-            <div className="update-form">
+            <div>
                 <h2>更新學生資料</h2>
                 <div className="search-bar">
                     <input

@@ -22,10 +22,23 @@
   font-size: 16px;
 }
 
+.insert-form.disabled input {
+  /* background-color: #f9f9f9;
+  border-color: #ddd; */
+  /* color: #999; */
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
 .insert-form input:focus {
   outline: none;
   border-color: #0078d7;
   box-shadow: 0 0 5px rgba(0, 120, 215, 0.5);
+}
+
+.insert-form.disabled input:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 .insert-form button {

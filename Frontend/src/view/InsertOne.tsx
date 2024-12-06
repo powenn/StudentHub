@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Navbar from '../component/NavBar';
-import { asyncPost } from '../utils/fetch';
+import { asyncGet, asyncPost } from '../utils/fetch';
 import { api } from '../enum/api';
 import { resp } from '../interface/resp';
 import '../style/InsertForm.css';
 import '../style/ResponseDisplay.css'
 import ResponseDisplay from '../component/ResponseDisplay';
+import { StudentsContext } from '../context/StudentsContext';
 
 export default function InsertOne() {
+  const { students, setStudents } = useContext(StudentsContext);
   const [newStudent, setNewStudent] = useState({
     userName: '',
     name: '',
@@ -28,20 +30,24 @@ export default function InsertOne() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();    
+    e.preventDefault();
     const response = await asyncPost(api.insertOne, newStudent);
     setResponse(response);
 
     if (response.code === 200) {
       alert('學生新增成功');
-      setNewStudent({
-        userName: '',
-        name: '',
-        department: '',
-        grade: '',
-        class: '',
-        Email: '',
-      });
+      // setNewStudent({
+      //   userName: '',
+      //   name: '',
+      //   department: '',
+      //   grade: '',
+      //   class: '',
+      //   Email: '',
+      // });
+      const res = await asyncGet(api.findAll);
+      if (res.code === 200) {
+        setStudents(res.body);
+      }
     } else {
       alert('新增失敗');
     }
