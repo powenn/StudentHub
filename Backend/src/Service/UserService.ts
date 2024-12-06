@@ -17,12 +17,11 @@ export class UserService extends Service {
 
     public async getAllStudents(): Promise<Array<DBResp<Student>> | undefined> {
         try {
-            const res: Array<DBResp<Student>> = await studentsModel.find({});
+            const res: Array<DBResp<Student>> = await studentsModel.find({}).sort({ sid: 1 });
             return res;
         } catch (error) {
             return undefined;
         }
-
     }
 
     /**
