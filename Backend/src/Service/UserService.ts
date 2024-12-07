@@ -6,6 +6,7 @@ import { Document } from "mongoose"
 import { MongoDB } from "../utils/MongoDB";
 import { DBResp } from "../interfaces/DBResp";
 import { resp } from "../utils/resp";
+import { DeleteResult } from "mongodb";
 
 type seatInfo = {
     schoolName: string,
@@ -145,25 +146,35 @@ export class UserService extends Service {
      * @returns resp<any>
      */
 
-    public async deleteByID(id: String) {
-
-        const resp: resp<any> = {
+    public async deleteByID(id: string): Promise<resp<DeleteResult>> {
+        const resp: resp<DeleteResult> = {
             code: 200,
             message: "",
-            body: undefined
-        }
-
+            body: {
+                acknowledged: false,
+                deletedCount: 0,
+            },
+        };
         try {
-            const res = await studentsModel.deleteOne({ _id: id })
-            resp.message = "success"
-            resp.body = res;
+            const result = await studentsModel.deleteOne({ _id: id });
+            resp.body = {
+                acknowledged: result.acknowledged || true,
+                deletedCount: result.deletedCount || 0,
+            };
+    
+            if (resp.body.deletedCount === 0) {
+                resp.code = 404;
+                resp.message = "No student found with the provided ID";
+            } else {
+                resp.message = "success";
+            }
         } catch (error) {
-            resp.message = error as string
-            resp.code = 500
+            resp.code = 500;
+            resp.message = `Server error: ${error}`;
         }
-
         return resp;
     }
+    
 
 
     /**
