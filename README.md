@@ -51,6 +51,11 @@ npm run dev
 
 # API 規格說明
 
+- GET /api/v1/user/findAll (取得全部學生資料)
+- POST /api/v1/user/insertOne (新增一筆學生資料)
+- PUT /api/v1/user/updateByID (使用 ID 為索引更新學生資料)
+- DELETE /api/v1/user/deleteByID (使用 ID 刪除學生)
+
 ---
 
 # 架構圖
