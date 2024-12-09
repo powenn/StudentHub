@@ -161,7 +161,7 @@ export class UserService extends Service {
                 acknowledged: result.acknowledged || true,
                 deletedCount: result.deletedCount || 0,
             };
-    
+
             if (resp.body.deletedCount === 0) {
                 resp.code = 404;
                 resp.message = "No student found with the provided ID";
@@ -174,7 +174,7 @@ export class UserService extends Service {
         }
         return resp;
     }
-    
+
 
 
     /**
@@ -183,25 +183,25 @@ export class UserService extends Service {
      * @param info
      * @returns resp
      */
-    public async updateByID(id: string, info: Student) {
+    public async updateByID(id: string, info: Student): Promise<resp<DBResp<Student> | string>> {
         const resp: resp<DBResp<Student> | string> = {
             code: 200,
             message: "",
             body: ""
         }
-    
+
         try {
             const user = await studentsModel.findById(id);
-            
+
             if (!user) {
                 resp.code = 404;
                 resp.message = "user not found";
                 return resp;
             }
-    
+
             const originalUserName = user.userName;
             const originalSid = user.sid;
-    
+
             if (info.userName !== originalUserName) {
                 const nameValidator = await this.userNameValidator(info.userName);
                 if (nameValidator !== '驗證通過') {
@@ -210,7 +210,7 @@ export class UserService extends Service {
                     return resp;
                 }
             }
-    
+
             if (info.sid !== originalSid) {
                 const sidExists = await this.checkSidExists(info.sid as string);
                 if (sidExists) {
@@ -219,7 +219,7 @@ export class UserService extends Service {
                     return resp;
                 }
             }
-    
+
             user.userName = info.userName || user.userName;
             user.sid = info.sid || user.sid;
             user.name = info.name;
@@ -238,7 +238,7 @@ export class UserService extends Service {
         }
         return resp;
     }
-    
+
     private async checkSidExists(sid: string): Promise<boolean> {
         const students = await this.getAllStudents();
         return students && students.some(student => student.sid === sid) || false;

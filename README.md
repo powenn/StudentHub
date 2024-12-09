@@ -75,45 +75,94 @@ npm run dev
     - 200
         ```
         {
-        "code": 200,
-        "message": "find sucess",
-        "body": [
-            {
-                "_id": "6751b29a94a899c352e189f1",
-                "userName": "tkuee0787",
-                "sid": "1",
-                "name": "張佳慧",
-                "department": "電機工程系",
-                "grade": "四年級",
-                "class": "A",
-                "Email": "tkuee0787@tkuim.com"
-            },
-            {
-                "_id": "6751b29a94a899c352e189f2",
-                "userName": "tkubm9553",
-                "sid": "2",
-                "name": "蔡文杰",
-                "department": "企業管理系",
-                "grade": "二年級",
-                "class": "A",
-                "Email": "tkubm9553@tkuim.com"
-            },
-        ]
+            "code": 200,
+            "message": "find sucess",
+            "body": [
+                {
+                    "_id": "6751b29a94a899c352e189f1",
+                    "userName": "tkuee0787",
+                    "sid": "1",
+                    "name": "張佳慧",
+                    "department": "電機工程系",
+                    "grade": "四年級",
+                    "class": "A",
+                    "Email": "tkuee0787@tkuim.com"
+                },
+                {
+                    "_id": "6751b29a94a899c352e189f2",
+                    "userName": "tkubm9553",
+                    "sid": "2",
+                    "name": "蔡文杰",
+                    "department": "企業管理系",
+                    "grade": "二年級",
+                    "class": "A",
+                    "Email": "tkubm9553@tkuim.com"
+                },
+            ]
         }
         ```
     - 500
         ```
         {
-        "code": 500,
-        "message": "server error",
-        "body": []
+            "code": 500,
+            "message": "server error"
         }
         ```
 - POST /api/v1/user/insertOne (新增一筆學生資料)
     ```
     public async insertOne(info: Student): Promise<resp<DBResp<Student> | undefined>>
     ```
+    request example
+    - body
+        ```
+        {
+            "userName":"tkuim0312",
+            "name":"測試用戶",
+            "department":"資訊管理系",
+            "grade":"3",
+            "class":"C",
+            "Email":"test@mail.com",
+            "absences":10
+        }
+        ```
+    response example
+    - 200
+        ```
+        {
+            "code": 200,
+            "message": "",
+            "body": {
+                "userName": "tkuim0312",
+                "sid": "52",
+                "name": "測試用戶",
+                "department": "資訊管理系",
+                "grade": "3",
+                "class": "C",
+                "Email": "test@mail.com",
+                "absences": 10,
+                "_id": "6756812efb244feeea3bad83",
+                "__v": 0
+            }
+        }
+        ```
+    - 403
+        ```
+        {
+            "code": 403,
+            "message": "student list is full"
+        }
+        ```
+    - 500
+        ```
+        {
+            "code": 500,
+            "message": "server error"
+        }
+        ```
 - PUT /api/v1/user/updateByID (使用 ID 為索引更新學生資料)
+    ```
+    public async updateByID(id: string, info: Student)
+    ```
 - DELETE /api/v1/user/deleteByID (使用 ID 刪除學生)
 
 ---
