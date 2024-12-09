@@ -279,11 +279,9 @@ npm run dev
 
 ---
 
-# 架構圖
+# 架構圖 / 流程圖
 
----
-
-# 流程圖
+![](/Imgs/arch-flow-chart.png)
 
 ---
 
