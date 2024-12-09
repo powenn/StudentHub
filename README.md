@@ -161,9 +161,121 @@ npm run dev
         ```
 - PUT /api/v1/user/updateByID (使用 ID 為索引更新學生資料)
     ```
-    public async updateByID(id: string, info: Student)
+    public async updateByID(id: string, info: Student): Promise<resp<DBResp<Student> | string>>
     ```
+    request example
+    - id
+        ```
+        id=6756812efb244feeea3bad83
+        ```
+    - body
+        ```
+        {
+            "_id":"6756812efb244feeea3bad83",
+            "userName":"tkuim0312",
+            "sid":"52",
+            "name":"測試用戶",
+            "department":"資訊管理系",
+            "grade":"3",
+            "class":"C",
+            "Email":"test@mail.com",
+            "absences":11,
+            "__v":0
+        }
+        ```
+    response example
+    - 200
+        ```
+        {
+            "code": 200,
+            "message": "update success",
+            "body": {
+                "_id": "6756812efb244feeea3bad83",
+                "userName": "tkuim0312",
+                "sid": "52",
+                "name": "測試用戶",
+                "department": "資訊管理系",
+                "grade": "3",
+                "class": "C",
+                "Email": "test@mail.com",
+                "absences": 11,
+                "__v": 0
+            }
+        }
+        ```
+    - 404
+        ```
+        {
+            "code": 404,
+            "message": "user not found"
+        }
+        ```
+    - 403 (座號已存在)
+        ```
+        {
+            "code": 403,
+            "message": "sid already exists"
+        }
+        ```
+    - 403 (用戶名驗證失敗)
+        ```
+        {
+            "code": 403,
+            "message": ${驗證失敗資訊}
+        }
+        ```
+        驗證失敗資訊 :   
+        `'學生名字格式不正確，應為 tku + 科系縮寫 + 四碼帳號，例如: tkubm1760' | '帳號已存在' | '校名必須為 tku' | '帳號格式不正確，必須為四位數字。'`
+    - 500
+        ```
+        {
+            "code": 500,
+            "message": "server error"
+        }
+        ```
 - DELETE /api/v1/user/deleteByID (使用 ID 刪除學生)
+    ```
+    public async deleteByID(id: string): Promise<resp<DeleteResult>>
+    ```
+    request example
+    - id
+        ```
+        id=6756812efb244feeea3bad83
+        ```
+    response example
+    - 200
+        ```
+            {
+                "code":200,
+                "message":"success",
+                "body":{
+                    "acknowledged":true,
+                    "deletedCount":1
+                }
+            }
+        ```
+    - 404
+        ```
+            {
+                "code": 404,
+                "message": "No student found with the provided ID",
+                "body":{
+                    "acknowledged":false,
+                    "deletedCount":0
+                }
+            }
+        ```
+    - 500
+        ```
+            {
+                "code": 500,
+                "message": `Server error: ${error}`,
+                "body":{
+                    "acknowledged":false,
+                    "deletedCount":0
+                }
+            }
+        ```
 
 ---
 
